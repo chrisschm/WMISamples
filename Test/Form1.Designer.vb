@@ -37,17 +37,23 @@ Partial Class Form1
         Me.ColumnHeader2 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.CMPName = New System.Windows.Forms.ComboBox()
         Me.cmdPRead = New System.Windows.Forms.Button()
+        Me.TabPage3 = New System.Windows.Forms.TabPage()
+        Me.lstBIOS = New System.Windows.Forms.ListView()
+        Me.ColumnHeader3 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.ColumnHeader4 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.TabPage2.SuspendLayout()
         Me.TableLayoutPanel2.SuspendLayout()
+        Me.TabPage3.SuspendLayout()
         Me.SuspendLayout()
         '
         'TabControl1
         '
         Me.TabControl1.Controls.Add(Me.TabPage1)
         Me.TabControl1.Controls.Add(Me.TabPage2)
+        Me.TabControl1.Controls.Add(Me.TabPage3)
         Me.TabControl1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TabControl1.Location = New System.Drawing.Point(0, 0)
         Me.TabControl1.Name = "TabControl1"
@@ -197,6 +203,39 @@ Partial Class Form1
         Me.cmdPRead.Text = "Partitionen einlesen"
         Me.cmdPRead.UseVisualStyleBackColor = True
         '
+        'TabPage3
+        '
+        Me.TabPage3.Controls.Add(Me.lstBIOS)
+        Me.TabPage3.Location = New System.Drawing.Point(4, 25)
+        Me.TabPage3.Name = "TabPage3"
+        Me.TabPage3.Padding = New System.Windows.Forms.Padding(3)
+        Me.TabPage3.Size = New System.Drawing.Size(645, 421)
+        Me.TabPage3.TabIndex = 2
+        Me.TabPage3.Text = "BIOS"
+        Me.TabPage3.UseVisualStyleBackColor = True
+        '
+        'lstBIOS
+        '
+        Me.lstBIOS.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeader3, Me.ColumnHeader4})
+        Me.lstBIOS.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lstBIOS.Location = New System.Drawing.Point(3, 3)
+        Me.lstBIOS.Margin = New System.Windows.Forms.Padding(10, 3, 10, 3)
+        Me.lstBIOS.Name = "lstBIOS"
+        Me.lstBIOS.Size = New System.Drawing.Size(639, 415)
+        Me.lstBIOS.TabIndex = 8
+        Me.lstBIOS.UseCompatibleStateImageBehavior = False
+        Me.lstBIOS.View = System.Windows.Forms.View.Details
+        '
+        'ColumnHeader3
+        '
+        Me.ColumnHeader3.Text = "Attr. Name"
+        Me.ColumnHeader3.Width = 200
+        '
+        'ColumnHeader4
+        '
+        Me.ColumnHeader4.Text = "Attr. Value"
+        Me.ColumnHeader4.Width = 400
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -210,6 +249,7 @@ Partial Class Form1
         Me.TableLayoutPanel1.ResumeLayout(False)
         Me.TabPage2.ResumeLayout(False)
         Me.TableLayoutPanel2.ResumeLayout(False)
+        Me.TabPage3.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
@@ -229,4 +269,8 @@ Partial Class Form1
     Friend WithEvents ColumnHeader2 As ColumnHeader
     Friend WithEvents CMPName As ComboBox
     Friend WithEvents cmdPRead As Button
+    Friend WithEvents TabPage3 As TabPage
+    Friend WithEvents lstBIOS As ListView
+    Friend WithEvents ColumnHeader3 As ColumnHeader
+    Friend WithEvents ColumnHeader4 As ColumnHeader
 End Class

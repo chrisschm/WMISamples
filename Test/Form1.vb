@@ -1,8 +1,12 @@
-﻿Imports CS.System.IO
+﻿Imports CS.System
+Imports CS.System.IO
+
 Public Class Form1
 
     Private dds As DiskDrives
     Private dps As DiskPartitions
+
+
 
     Private Sub cmdRead_Click(sender As Object, e As EventArgs) Handles cmdRead.Click
 
@@ -322,6 +326,106 @@ Public Class Form1
             End If
         Next
 
+    End Sub
+
+
+    Private Sub TabPage3_Enter(sender As Object, e As EventArgs) Handles TabPage3.Enter
+
+        Dim cBIOS As New BIOS
+        Dim lstBIOSItem As ListViewItem
+        Dim l As Long
+
+        lstBIOS.Items.Clear()
+
+        lstBIOSItem = lstBIOS.Items.Add(New ListViewItem)
+        lstBIOSItem.SubItems(0).Text = "BiosName"
+        lstBIOSItem.SubItems.Add(cBIOS.BiosName.ToString)
+        For l = 1 To cBIOS.BIOSVersion.Count
+            lstBIOSItem = lstBIOS.Items.Add(New ListViewItem)
+            lstBIOSItem.SubItems(0).Text = "BIOSVersion #" & l.ToString
+            lstBIOSItem.SubItems.Add(cBIOS.BIOSVersion(l - 1).ToString)
+        Next
+        lstBIOSItem = lstBIOS.Items.Add(New ListViewItem)
+        lstBIOSItem.SubItems(0).Text = "BuildNumber"
+        lstBIOSItem.SubItems.Add(cBIOS.BuildNumber.ToString)
+        lstBIOSItem = lstBIOS.Items.Add(New ListViewItem)
+        lstBIOSItem.SubItems(0).Text = "Caption"
+        lstBIOSItem.SubItems.Add(cBIOS.Caption.ToString)
+        lstBIOSItem = lstBIOS.Items.Add(New ListViewItem)
+        lstBIOSItem.SubItems(0).Text = "CodeSet"
+        lstBIOSItem.SubItems.Add(cBIOS.CodeSet.ToString)
+        lstBIOSItem = lstBIOS.Items.Add(New ListViewItem)
+        lstBIOSItem.SubItems(0).Text = "CurrentLanguage"
+        lstBIOSItem.SubItems.Add(cBIOS.CurrentLanguage.ToString)
+        lstBIOSItem = lstBIOS.Items.Add(New ListViewItem)
+        lstBIOSItem.SubItems(0).Text = "Description"
+        lstBIOSItem.SubItems.Add(cBIOS.Description.ToString)
+        lstBIOSItem = lstBIOS.Items.Add(New ListViewItem)
+        lstBIOSItem.SubItems(0).Text = "EmbeddedControllerMajorVersion"
+        lstBIOSItem.SubItems.Add(cBIOS.EmbeddedControllerMajorVersion.ToString)
+        lstBIOSItem = lstBIOS.Items.Add(New ListViewItem)
+        lstBIOSItem.SubItems(0).Text = "EmbeddedControllerMinorVersion"
+        lstBIOSItem.SubItems.Add(cBIOS.EmbeddedControllerMinorVersion.ToString)
+        lstBIOSItem = lstBIOS.Items.Add(New ListViewItem)
+        lstBIOSItem.SubItems(0).Text = "IdentificationCode"
+        lstBIOSItem.SubItems.Add(cBIOS.IdentificationCode.ToString)
+        lstBIOSItem = lstBIOS.Items.Add(New ListViewItem)
+        lstBIOSItem.SubItems(0).Text = "InstallableLanguages"
+        lstBIOSItem.SubItems.Add(cBIOS.InstallableLanguages.ToString)
+        lstBIOSItem = lstBIOS.Items.Add(New ListViewItem)
+        lstBIOSItem.SubItems(0).Text = "InstallDate"
+        lstBIOSItem.SubItems.Add(cBIOS.InstallDate.ToString)
+        lstBIOSItem = lstBIOS.Items.Add(New ListViewItem)
+        lstBIOSItem.SubItems(0).Text = "LanguageEdition"
+        lstBIOSItem.SubItems.Add(cBIOS.LanguageEdition.ToString)
+        lstBIOSItem = lstBIOS.Items.Add(New ListViewItem)
+        lstBIOSItem.SubItems(0).Text = "Manufacturer"
+        lstBIOSItem.SubItems.Add(cBIOS.Manufacturer.ToString)
+        lstBIOSItem = lstBIOS.Items.Add(New ListViewItem)
+        lstBIOSItem.SubItems(0).Text = "OtherTargetOS"
+        lstBIOSItem.SubItems.Add(cBIOS.OtherTargetOS.ToString)
+        lstBIOSItem = lstBIOS.Items.Add(New ListViewItem)
+        lstBIOSItem.SubItems(0).Text = "PrimaryBIOS"
+        lstBIOSItem.SubItems.Add(cBIOS.PrimaryBIOS.ToString)
+        lstBIOSItem = lstBIOS.Items.Add(New ListViewItem)
+        lstBIOSItem.SubItems(0).Text = "ReleaseDate"
+        lstBIOSItem.SubItems.Add(cBIOS.ReleaseDate.ToString)
+        lstBIOSItem = lstBIOS.Items.Add(New ListViewItem)
+        lstBIOSItem.SubItems(0).Text = "SerialNumber"
+        lstBIOSItem.SubItems.Add(cBIOS.SerialNumber.ToString)
+        lstBIOSItem = lstBIOS.Items.Add(New ListViewItem)
+        lstBIOSItem.SubItems(0).Text = "SMBIOSBIOSVersion"
+        lstBIOSItem.SubItems.Add(cBIOS.SMBIOSBIOSVersion.ToString)
+        lstBIOSItem = lstBIOS.Items.Add(New ListViewItem)
+        lstBIOSItem.SubItems(0).Text = "SMBIOSMajorVersion"
+        lstBIOSItem.SubItems.Add(cBIOS.SMBIOSMajorVersion.ToString)
+        lstBIOSItem = lstBIOS.Items.Add(New ListViewItem)
+        lstBIOSItem.SubItems(0).Text = "SMBIOSMinorVersion"
+        lstBIOSItem.SubItems.Add(cBIOS.SMBIOSMinorVersion.ToString)
+        lstBIOSItem = lstBIOS.Items.Add(New ListViewItem)
+        lstBIOSItem.SubItems(0).Text = "SMBIOSPresent"
+        lstBIOSItem.SubItems.Add(cBIOS.SMBIOSPresent.ToString)
+        lstBIOSItem = lstBIOS.Items.Add(New ListViewItem)
+        lstBIOSItem.SubItems(0).Text = "SoftwareElementID"
+        lstBIOSItem.SubItems.Add(cBIOS.SoftwareElementID.ToString)
+        lstBIOSItem = lstBIOS.Items.Add(New ListViewItem)
+        lstBIOSItem.SubItems(0).Text = "SoftwareElementState"
+        lstBIOSItem.SubItems.Add(cBIOS.SoftwareElementState.ToString)
+        lstBIOSItem = lstBIOS.Items.Add(New ListViewItem)
+        lstBIOSItem.SubItems(0).Text = "Status"
+        lstBIOSItem.SubItems.Add(cBIOS.Status.ToString)
+        lstBIOSItem = lstBIOS.Items.Add(New ListViewItem)
+        lstBIOSItem.SubItems(0).Text = "SystemBiosMajorVersion"
+        lstBIOSItem.SubItems.Add(cBIOS.SystemBiosMajorVersion.ToString)
+        lstBIOSItem = lstBIOS.Items.Add(New ListViewItem)
+        lstBIOSItem.SubItems(0).Text = "SystemBiosMinorVersion"
+        lstBIOSItem.SubItems.Add(cBIOS.SystemBiosMinorVersion.ToString)
+        lstBIOSItem = lstBIOS.Items.Add(New ListViewItem)
+        lstBIOSItem.SubItems(0).Text = "TargetOperatingSystem"
+        lstBIOSItem.SubItems.Add(cBIOS.TargetOperatingSystem.ToString)
+        lstBIOSItem = lstBIOS.Items.Add(New ListViewItem)
+        lstBIOSItem.SubItems(0).Text = "Version"
+        lstBIOSItem.SubItems.Add(cBIOS.Version.ToString)
     End Sub
 
 End Class
