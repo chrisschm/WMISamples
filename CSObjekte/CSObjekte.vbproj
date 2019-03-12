@@ -65,6 +65,7 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BIOS.vb" />
     <Compile Include="DiskDrive.vb" />
     <Compile Include="DiskDrives.vb" />
     <Compile Include="DiskPartition.vb" />
