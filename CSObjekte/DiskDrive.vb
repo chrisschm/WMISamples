@@ -67,7 +67,10 @@
                     Private lngTotalTracks As ULong
                     Private intTracksPerCylinder As UInteger
 #End Region
-
+                    ''' <summary>
+                    ''' Creates and returns a new DiskDrives object
+                    ''' </summary>
+                    ''' <param name="SelectedDrive">Required. One instance from WMI Win32_DiskDrive class as ManagementObject</param>
                     Friend Sub New(SelectedDrive As Global.System.Management.ManagementObject)
 
                         srtAvailability = SelectedDrive("Availability")
@@ -176,7 +179,7 @@
                     ''' indicated in the Capabilities array. Note, each entry of this array is 
                     ''' related to the entry in the Capabilities array that is located at the same index.
                     ''' </summary>
-                    ''' <returns></returns>
+                    ''' <returns>Description for the numbers from Capabilities property as an String array</returns>
                     Public ReadOnly Property CapabilityDescriptions() As String()
                         Get
                             Return strCapabilityDescriptions
@@ -186,7 +189,7 @@
                     ''' <summary>
                     ''' Short description of the object.
                     ''' </summary>
-                    ''' <returns></returns>
+                    ''' <returns>String. Short description of the object.</returns>
                     Public ReadOnly Property Caption() As String
                         Get
                             If IsNothing(strCaption) = True Then
@@ -226,7 +229,7 @@
                     ''' <summary>
                     ''' If True, the device is using a user-defined configuration.
                     ''' </summary>
-                    ''' <returns></returns>
+                    ''' <returns>True if the device is using a user-defined configuration, otherwise false.</returns>
                     Public ReadOnly Property ConfigManagerUserConfig() As Boolean
                         Get
                             Return bolConfigManagerUserConfig
@@ -239,7 +242,7 @@
                     ''' properties of the class, the property allows all instances of this 
                     ''' class and its subclasses to be uniquely identified.
                     ''' </summary>
-                    ''' <returns></returns>
+                    ''' <returns>String</returns>
                     Public ReadOnly Property CreationClassName() As String
                         Get
                             If IsNothing(strCreationClassName) = True Then
@@ -253,7 +256,7 @@
                     ''' <summary>
                     ''' Default block size, in bytes, for this device.
                     ''' </summary>
-                    ''' <returns></returns>
+                    ''' <returns>Unsigned Long</returns>
                     Public ReadOnly Property DefaultBlockSize() As ULong
                         Get
                             Return lngDefaultBlockSize
@@ -263,7 +266,7 @@
                     ''' <summary>
                     ''' Description of the object.
                     ''' </summary>
-                    ''' <returns></returns>
+                    ''' <returns>String</returns>
                     Public ReadOnly Property Description() As String
                         Get
                             If IsNothing(strDescription) = True Then
@@ -277,7 +280,7 @@
                     ''' <summary>
                     ''' Unique identifier of the disk drive with other devices on the system.
                     ''' </summary>
-                    ''' <returns></returns>
+                    ''' <returns>String</returns>
                     Public ReadOnly Property DeviceID() As String
                         Get
                             If IsNothing(strDeviceID) = True Then
@@ -294,7 +297,7 @@
                     ''' control code. A value of 0xffffffff indicates that the given drive does 
                     ''' not map to a physical drive. WMI attribute name: Index
                     ''' </summary>
-                    ''' <returns></returns>
+                    ''' <returns>Unsingned Integer</returns>
                     Public ReadOnly Property DeviceIndex() As UInteger
                         Get
                             Return intDeviceIndex
@@ -305,7 +308,7 @@
                     ''' Label by which the object is known. When subclassed, the property can 
                     ''' be overridden to be a key property. WMI attribute name: Name
                     ''' </summary>
-                    ''' <returns></returns>
+                    ''' <returns>String</returns>
                     Public ReadOnly Property DeviceName() As String
                         Get
                             If IsNothing(strDeviceName) = True Then
@@ -319,7 +322,7 @@
                     ''' <summary>
                     ''' If True, the error reported in LastErrorCode is now cleared.
                     ''' </summary>
-                    ''' <returns></returns>
+                    ''' <returns>True if cleared, otherwise false</returns>
                     Public ReadOnly Property ErrorCleared() As Boolean
                         Get
                             Return bolErrorCleared
@@ -330,7 +333,7 @@
                     ''' More information about the error recorded in LastErrorCode, and 
                     ''' information on any corrective actions that may be taken.
                     ''' </summary>
-                    ''' <returns></returns>
+                    ''' <returns>String</returns>
                     Public ReadOnly Property ErrorDescription() As String
                         Get
                             If IsNothing(strErrorDescription) = True Then
@@ -344,7 +347,7 @@
                     ''' <summary>
                     ''' Type of error detection and correction supported by this device.
                     ''' </summary>
-                    ''' <returns></returns>
+                    ''' <returns>String</returns>
                     Public ReadOnly Property ErrorMethodology() As String
                         Get
                             If IsNothing(strErrorMethodology) = True Then
@@ -358,7 +361,7 @@
                     ''' <summary>
                     ''' Revision for the disk drive firmware that is assigned by the manufacturer.
                     ''' </summary>
-                    ''' <returns></returns>
+                    ''' <returns>String</returns>
                     Public ReadOnly Property FirmwareRevision() As String
                         Get
                             If IsNothing(strFirmwareRevision) = True Then
@@ -373,7 +376,7 @@
                     ''' Date and time the object was installed. This property does not need a 
                     ''' value to indicate that the object is installed.
                     ''' </summary>
-                    ''' <returns></returns>
+                    ''' <returns>DateTime</returns>
                     Public ReadOnly Property InstallDate() As Date
                         Get
                             Return dtInstallDate
@@ -399,7 +402,7 @@
                     ''' <summary>
                     ''' Last error code reported by the logical device.
                     ''' </summary>
-                    ''' <returns></returns>
+                    ''' <returns>Unsigned Integer</returns>
                     Public ReadOnly Property LastErrorCode() As UInteger
                         Get
                             Return intLastErrorCode
@@ -409,7 +412,7 @@
                     ''' <summary>
                     ''' Name of the disk drive manufacturer.
                     ''' </summary>
-                    ''' <returns></returns>
+                    ''' <returns>String</returns>
                     Public ReadOnly Property Manufacturer() As String
                         Get
                             If IsNothing(strManufacturer) = True Then
@@ -423,7 +426,7 @@
                     ''' <summary>
                     ''' Maximum block size, in bytes, for media accessed by this device.
                     ''' </summary>
-                    ''' <returns></returns>
+                    ''' <returns>Unsigned Long</returns>
                     Public ReadOnly Property MaxBlockSize() As ULong
                         Get
                             Return lngMaxBlockSize
@@ -433,7 +436,7 @@
                     ''' <summary>
                     ''' Maximum media size, in kilobytes, of media supported by this device.
                     ''' </summary>
-                    ''' <returns></returns>
+                    ''' <returns>Unsigned Long</returns>
                     Public ReadOnly Property MaxMediaSize() As ULong
                         Get
                             Return lngMaxMediaSize
@@ -445,7 +448,7 @@
                     ''' has a readable file system and is accessible. For fixed disk drives, this 
                     ''' property will always be TRUE.
                     ''' </summary>
-                    ''' <returns></returns>
+                    ''' <returns>True if media is loaded, otherwise false</returns>
                     Public ReadOnly Property MediaLoaded() As Boolean
                         Get
                             Return bolMediaLoaded
@@ -455,7 +458,7 @@
                     ''' <summary>
                     ''' Type of media used or accessed by this device.
                     ''' </summary>
-                    ''' <returns></returns>
+                    ''' <returns>String</returns>
                     Public ReadOnly Property MediaType() As String
                         Get
                             If IsNothing(strMediaType) = True Then
@@ -469,7 +472,7 @@
                     ''' <summary>
                     ''' Minimum block size, in bytes, for media accessed by this device.
                     ''' </summary>
-                    ''' <returns></returns>
+                    ''' <returns>Unsigned Long</returns>
                     Public ReadOnly Property MinBlockSize() As ULong
                         Get
                             Return lngMinBlockSize
@@ -479,7 +482,7 @@
                     ''' <summary>
                     ''' Manufacturer's model number/name of the disk drive.
                     ''' </summary>
-                    ''' <returns></returns>
+                    ''' <returns>String</returns>
                     Public ReadOnly Property Model() As String
                         Get
                             If IsNothing(strModel) = True Then
@@ -495,7 +498,7 @@
                     ''' manual or automatic cleaning is possible is indicated 
                     ''' in the Capabilities property.
                     ''' </summary>
-                    ''' <returns></returns>
+                    ''' <returns>True if cleaning is needed, otherwise false</returns>
                     Public ReadOnly Property NeedsCleaning() As Boolean
                         Get
                             Return bolNeedsCleaning
@@ -506,7 +509,7 @@
                     ''' Maximum number of media which can be supported or inserted 
                     ''' (when the media access device supports multiple individual media).
                     ''' </summary>
-                    ''' <returns></returns>
+                    ''' <returns>Unsigned Integer</returns>
                     Public ReadOnly Property NumberOfMediaSupported() As UInteger
                         Get
                             Return intNumberOfMediaSupported
@@ -516,7 +519,7 @@
                     ''' <summary>
                     ''' Number of partitions on this physical disk drive that are recognized by the operating system.
                     ''' </summary>
-                    ''' <returns></returns>
+                    ''' <returns>Unsigned Integer</returns>
                     Public ReadOnly Property Partitions() As UInteger
                         Get
                             Return intPartitions
@@ -526,7 +529,7 @@
                     ''' <summary>
                     ''' Windows Plug and Play device identifier of the logical device.
                     ''' </summary>
-                    ''' <returns></returns>
+                    ''' <returns>String</returns>
                     Public ReadOnly Property PNPDeviceID() As String
                         Get
                             If IsNothing(strPNPDeviceID) = True Then
@@ -541,7 +544,7 @@
                     ''' Array of the specific power-related capabilities of a logical device.
                     ''' </summary>
                     ''' <returns>Have a look at the Win32_DiskDrive WMI class documentation</returns>
-                    ''' <remarks>Could be Nothing, first check PowerManagementSupported property!</remarks>
+                    ''' <remarks>Unsigned Short. Could be Nothing, first check PowerManagementSupported property!</remarks>
                     Public ReadOnly Property PowerManagementCapabilities() As UShort()
                         Get
                             Return srtPowerManagementCapabilities
@@ -553,7 +556,7 @@
                     ''' The property does not indicate that power management features are currently 
                     ''' enabled, only that the logical device is capable of power management.
                     ''' </summary>
-                    ''' <returns></returns>
+                    ''' <returns>True if powermanagement is supported, otherwise false</returns>
                     Public ReadOnly Property PowerManagementSupported() As Boolean
                         Get
                             Return bolPowerManagementSupported
@@ -563,7 +566,7 @@
                     ''' <summary>
                     ''' SCSI bus number of the disk drive.
                     ''' </summary>
-                    ''' <returns></returns>
+                    ''' <returns>Unsigned Integer</returns>
                     Public ReadOnly Property SCSIBus() As UInteger
                         Get
                             Return intSCSIBus
@@ -573,7 +576,7 @@
                     ''' <summary>
                     ''' SCSI logical unit number (LUN) of the disk drive.
                     ''' </summary>
-                    ''' <returns></returns>
+                    ''' <returns>Unsigned Short</returns>
                     Public ReadOnly Property SCSILogicalUnit() As UShort
                         Get
                             Return srtSCSILogicalUnit
@@ -583,7 +586,7 @@
                     ''' <summary>
                     ''' SCSI port number of the disk drive.
                     ''' </summary>
-                    ''' <returns></returns>
+                    ''' <returns>Unsigned Short</returns>
                     Public ReadOnly Property SCSIPort() As UShort
                         Get
                             Return srtSCSIPort
@@ -593,7 +596,7 @@
                     ''' <summary>
                     ''' SCSI identifier number of the disk drive.
                     ''' </summary>
-                    ''' <returns></returns>
+                    ''' <returns>Unsigned Short</returns>
                     Public ReadOnly Property SCSITargetId() As UShort
                         Get
                             Return srtSCSITargetId
@@ -603,7 +606,7 @@
                     ''' <summary>
                     ''' Number of sectors in each track for this physical disk drive.
                     ''' </summary>
-                    ''' <returns></returns>
+                    ''' <returns>Unsigned Integer</returns>
                     Public ReadOnly Property SectorsPerTrack() As UInteger
                         Get
                             Return intSectorsPerTrack
@@ -613,7 +616,7 @@
                     ''' <summary>
                     ''' Number allocated by the manufacturer to identify the physical media.
                     ''' </summary>
-                    ''' <returns></returns>
+                    ''' <returns>String</returns>
                     Public ReadOnly Property SerialNumber() As String
                         Get
                             If IsNothing(strSerialNumber) = True Then
@@ -627,7 +630,7 @@
                     ''' <summary>
                     ''' Disk identification. This property can be used to identify a shared resource.
                     ''' </summary>
-                    ''' <returns></returns>
+                    ''' <returns>Unsigned Integer</returns>
                     Public ReadOnly Property Signature() As UInteger
                         Get
                             Return intSignature
@@ -639,7 +642,7 @@
                     ''' number of cylinders, tracks in each cylinder, sectors in each track, and 
                     ''' bytes in each sector.
                     ''' </summary>
-                    ''' <returns></returns>
+                    ''' <returns>Unsigned Long</returns>
                     Public ReadOnly Property Size() As ULong
                         Get
                             Return lngSize
@@ -656,7 +659,7 @@
                     ''' administrative work. Not all such work is online, yet the managed element is 
                     ''' neither "OK" nor in one of the other states.
                     ''' </summary>
-                    ''' <returns>Have a look at the Win32_DiskDrive WMI class documentation</returns>
+                    ''' <returns>String. Have a look at the Win32_DiskDrive WMI class documentation</returns>
                     Public ReadOnly Property Status() As String
                         Get
                             If IsNothing(strStatus) = True Then
@@ -671,7 +674,7 @@
                     ''' State of the logical device. If this property does not apply to the logical 
                     ''' device, the value 5 (Not Applicable) should be used.
                     ''' </summary>
-                    ''' <returns>Have a look at the Win32_DiskDrive WMI class documentation</returns>
+                    ''' <returns>Unsigned Short. Have a look at the Win32_DiskDrive WMI class documentation</returns>
                     Public ReadOnly Property StatusInfo() As UShort
                         Get
                             Return srtStatusInfo
@@ -681,7 +684,7 @@
                     ''' <summary>
                     ''' Value of the scoping computer's CreationClassName property.
                     ''' </summary>
-                    ''' <returns></returns>
+                    ''' <returns>String</returns>
                     Public ReadOnly Property SystemCreationClassName As String
                         Get
                             If IsNothing(strSystemCreationClassName) = True Then
@@ -695,7 +698,7 @@
                     ''' <summary>
                     ''' Name of the scoping system.
                     ''' </summary>
-                    ''' <returns></returns>
+                    ''' <returns>String</returns>
                     Public ReadOnly Property SystemName() As String
                         Get
                             If IsNothing(strSystemName) = True Then
@@ -712,7 +715,7 @@
                     ''' The value may be inaccurate if the drive uses a translation scheme to support 
                     ''' high-capacity disk sizes. Consult the manufacturer for accurate drive specifications.
                     ''' </summary>
-                    ''' <returns></returns>
+                    ''' <returns>Unsigned Long</returns>
                     Public ReadOnly Property TotalCylinders() As ULong
                         Get
                             Return lngTotalCylinders
@@ -725,7 +728,7 @@
                     ''' inaccurate if the drive uses a translation scheme to support high-capacity 
                     ''' disk sizes. Consult the manufacturer for accurate drive specifications.
                     ''' </summary>
-                    ''' <returns></returns>
+                    ''' <returns>Unsigned Integer</returns>
                     Public ReadOnly Property TotalHeads() As UInteger
                         Get
                             Return intTotalHeads
@@ -738,7 +741,7 @@
                     ''' value may be inaccurate if the drive uses a translation scheme to support 
                     ''' high-capacity disk sizes. Consult the manufacturer for accurate drive specifications.
                     ''' </summary>
-                    ''' <returns></returns>
+                    ''' <returns>Unsigned Long</returns>
                     Public ReadOnly Property TotalSectors() As ULong
                         Get
                             Return lngTotalSectors
@@ -751,7 +754,7 @@
                     ''' value may be inaccurate if the drive uses a translation scheme to support 
                     ''' high-capacity disk sizes. Consult the manufacturer for accurate drive specifications.
                     ''' </summary>
-                    ''' <returns></returns>
+                    ''' <returns>Unsigned Long</returns>
                     Public ReadOnly Property TotalTracks() As ULong
                         Get
                             Return lngTotalTracks
@@ -765,7 +768,7 @@
                     ''' scheme to support high-capacity disk sizes. Consult the manufacturer for 
                     ''' accurate drive specifications.
                     ''' </summary>
-                    ''' <returns></returns>
+                    ''' <returns>Unsigned Integer</returns>
                     Public ReadOnly Property TracksPerCylinder() As UInteger
                         Get
                             Return intTracksPerCylinder
