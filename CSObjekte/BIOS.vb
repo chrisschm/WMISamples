@@ -2,12 +2,19 @@
     Namespace CS
         Namespace System
 
+            ''' <summary>
+            ''' The BIOS class encapsulate the Win32_BIOS WMI class, that represents the 
+            ''' attributes of the computer system's basic input/output services (BIOS) 
+            ''' that are installed on a computer.
+            ''' </summary>
+            ''' <remarks>
+            ''' Documentation Win32_BIOS WMI class: 
+            ''' https://docs.microsoft.com/en-us/windows/desktop/cimwin32prov/win32-bios
+            ''' </remarks>
             Public Class BIOS
 
 #Region "PrivateVariables"
                 ' Private Variables to store Attributes of Win32_BIOS WMI Object
-                ' Documentation: https://docs.microsoft.com/en-us/windows/desktop/cimwin32prov/win32-bios
-
                 Private strucBiosCharacteristics As BiosCharacteristicValues
                 Private strBiosName As String
                 Private strBIOSVersion As String()
@@ -25,7 +32,7 @@
                 Private strManufacturer As String
                 Private strOtherTargetOS As String
                 Private bolPrimaryBIOS As Boolean
-                Private strReleaseDate As String
+                Private dtReleaseDate As Date
                 Private strSerialNumber As String
                 Private strSMBIOSBIOSVersion As String
                 Private srtSMBIOSMajorVersion As UShort
@@ -45,6 +52,10 @@
 #End Region
 
 #Region "PublicStrutures"
+                ''' <summary>
+                ''' BIOS characteristics supported by the system as defined by 
+                ''' the System Management BIOS Reference Specification.
+                ''' </summary>
                 Public Structure BiosCharacteristicValues
                     Public Reserved0 As Boolean
                     Public Reserved1 As Boolean
@@ -114,7 +125,9 @@
 #End Region
 
 
-
+                ''' <summary>
+                ''' Creates and returns a new BIOS object
+                ''' </summary>
                 Public Sub New()
 
                     Dim i As Integer
@@ -147,7 +160,7 @@
                             strManufacturer = mosB("Manufacturer")
                             strOtherTargetOS = mosB("OtherTargetOS")
                             bolPrimaryBIOS = mosB("PrimaryBIOS")
-                            strReleaseDate = mosB("ReleaseDate") ' ISSUE: should be DATE but does not work
+                            dtReleaseDate = GetReleaseDate(mosB("ReleaseDate"))
                             strSerialNumber = mosB("SerialNumber")
                             strSMBIOSBIOSVersion = mosB("SMBIOSBIOSVersion")
                             srtSMBIOSMajorVersion = mosB("SMBIOSMajorVersion")
@@ -167,6 +180,31 @@
                 End Sub
 
 #Region "PrivateMethods"
+                Private Function GetReleaseDate(UTCFormat As String) As Date
+
+                    Dim year As String
+                    Dim month As String
+                    Dim day As String
+                    Dim hour As String
+                    Dim minute As String
+                    Dim second As String
+                    Dim strDate As String
+
+                    ' YYYYMMDDHHMMSS.MMMMMM(+-)OOO.
+
+                    year = Mid(UTCFormat, 1, 4)
+                    month = Mid(UTCFormat, 5, 2)
+                    day = Mid(UTCFormat, 7, 2)
+                    hour = Mid(UTCFormat, 9, 2)
+                    minute = Mid(UTCFormat, 11, 2)
+                    second = Mid(UTCFormat, 13, 2)
+
+                    strDate = "#" & day & "/" & month & "/" & year & " " & hour & ":" & minute & ":" & second & "#"
+
+                    Return Date.Parse(strDate)
+
+                End Function
+
                 Private Function GetBiosCharacteristicValues(Values As UShort()) As BiosCharacteristicValues
 
                     For Each value As UShort In Values
@@ -379,13 +417,22 @@
 #End Region
 
 #Region "PublicProperties"
-
+                ''' <summary>
+                ''' Array of BIOS characteristics supported by the system as defined by 
+                ''' the System Management BIOS Reference Specification.
+                ''' </summary>
+                ''' <returns>Structure BiosCharacteristicValues</returns>
                 Public ReadOnly Property BiosCharacteristics() As BiosCharacteristicValues
                     Get
+                        If IsNothing(strucBiosCharacteristics) = True Then InitBiosCharacteristicValues()
                         Return strucBiosCharacteristics
                     End Get
                 End Property
 
+                ''' <summary>
+                ''' Name used to identify this software element.
+                ''' </summary>
+                ''' <returns>String</returns>
                 Public ReadOnly Property BiosName() As String
                     Get
                         If IsNothing(strBiosName) = True Then
@@ -396,12 +443,26 @@
                     End Get
                 End Property
 
+                ''' <summary>
+                ''' Array of the complete system BIOS information. In many computers there can 
+                ''' be several version strings that are stored in the registry and represent 
+                ''' the system BIOS information.
+                ''' </summary>
+                ''' <returns>Array of Strings</returns>
                 Public ReadOnly Property BIOSVersion() As String()
                     Get
-                        Return strBIOSVersion
+                        If IsNothing(strBIOSVersion) = True Then
+                            Return {""}
+                        Else
+                            Return strBIOSVersion
+                        End If
                     End Get
                 End Property
 
+                ''' <summary>
+                ''' Internal identifier for this compilation of this software element.
+                ''' </summary>
+                ''' <returns>String</returns>
                 Public ReadOnly Property BuildNumber() As String
                     Get
                         If IsNothing(strBuildNumber) = True Then
@@ -412,6 +473,10 @@
                     End Get
                 End Property
 
+                ''' <summary>
+                ''' Short description of the object a one-line string.
+                ''' </summary>
+                ''' <returns>String</returns>
                 Public ReadOnly Property Caption() As String
                     Get
                         If IsNothing(strCaption) = True Then
@@ -422,6 +487,10 @@
                     End Get
                 End Property
 
+                ''' <summary>
+                ''' Code set used by this software element.
+                ''' </summary>
+                ''' <returns>String</returns>
                 Public ReadOnly Property CodeSet() As String
                     Get
                         If IsNothing(strCodeSet) = True Then
@@ -432,6 +501,10 @@
                     End Get
                 End Property
 
+                ''' <summary>
+                ''' Name of the current BIOS language.
+                ''' </summary>
+                ''' <returns>String</returns>
                 Public ReadOnly Property CurrentLanguage() As String
                     Get
                         If IsNothing(strCurrentLanguage) = True Then
@@ -442,6 +515,10 @@
                     End Get
                 End Property
 
+                ''' <summary>
+                ''' Description of the object.
+                ''' </summary>
+                ''' <returns>String</returns>
                 Public ReadOnly Property Description() As String
                     Get
                         If IsNothing(strDescription) = True Then
@@ -452,18 +529,39 @@
                     End Get
                 End Property
 
+                ''' <summary>
+                ''' The major release of the embedded controller firmware.
+                ''' </summary>
+                ''' <returns>Byte (0-255)</returns>
                 Public ReadOnly Property EmbeddedControllerMajorVersion() As Byte
                     Get
-                        Return bytEmbeddedControllerMajorVersion
+                        If IsNothing(bytEmbeddedControllerMajorVersion) = True Then
+                            Return 0
+                        Else
+                            Return bytEmbeddedControllerMajorVersion
+                        End If
                     End Get
                 End Property
 
+                ''' <summary>
+                ''' The minor release of the embedded controller firmware.
+                ''' </summary>
+                ''' <returns>Byte (0-255)</returns>
                 Public ReadOnly Property EmbeddedControllerMinorVersion() As Byte
                     Get
-                        Return bytEmbeddedControllerMinorVersion
+                        If IsNothing(bytEmbeddedControllerMinorVersion) = True Then
+                            Return 0
+                        Else
+                            Return bytEmbeddedControllerMinorVersion
+                        End If
                     End Get
                 End Property
 
+                ''' <summary>
+                ''' Manufacturer's identifier for this software element. Often this 
+                ''' will be a stock keeping unit (SKU) or a part number.
+                ''' </summary>
+                ''' <returns>String</returns>
                 Public ReadOnly Property IdentificationCode() As String
                     Get
                         If IsNothing(strIdentificationCode) = True Then
@@ -474,18 +572,42 @@
                     End Get
                 End Property
 
+                ''' <summary>
+                ''' Number of languages available for installation on this system. Language may 
+                ''' determine properties such as the need for Unicode and bidirectional text.
+                ''' </summary>
+                ''' <returns>UShort</returns>
                 Public ReadOnly Property InstallableLanguages() As UShort
                     Get
-                        Return srtInstallableLanguages
+                        If IsNothing(srtInstallableLanguages) = True Then
+                            Return 0
+                        Else
+                            Return srtInstallableLanguages
+                        End If
                     End Get
                 End Property
 
+                ''' <summary>
+                ''' Date and time the object was installed. This property does not 
+                ''' need a value to indicate that the object is installed.
+                ''' </summary>
+                ''' <returns>DateTime</returns>
                 Public ReadOnly Property InstallDate() As Date
                     Get
+                        If IsNothing(dtInstallDate) = True Then
+                            Return #01/01/0001#
+                        End If
                         Return dtInstallDate
                     End Get
                 End Property
 
+                ''' <summary>
+                ''' Language edition of this software element. The language codes 
+                ''' defined in ISO 639 should be used. Where the software element 
+                ''' represents a multilingual or international version of a product, 
+                ''' the string "multilingual" should be used.
+                ''' </summary>
+                ''' <returns>String</returns>
                 Public ReadOnly Property LanguageEdition() As String
                     Get
                         If IsNothing(strLanguageEdition) = True Then
@@ -496,6 +618,10 @@
                     End Get
                 End Property
 
+                ''' <summary>
+                ''' This value comes from the Vendor member of the BIOS Information structure in the SMBIOS information.
+                ''' </summary>
+                ''' <returns>String</returns>
                 Public ReadOnly Property Manufacturer() As String
                     Get
                         If IsNothing(strManufacturer) = True Then
@@ -506,6 +632,11 @@
                     End Get
                 End Property
 
+                ''' <summary>
+                ''' Records the manufacturer and operating system type for a software element when 
+                ''' the TargetOperatingSystem property has a value of 1 (Other). 
+                ''' </summary>
+                ''' <returns>String</returns>
                 Public ReadOnly Property OtherTargetOS() As String
                     Get
                         If IsNothing(strOtherTargetOS) = True Then
@@ -516,18 +647,38 @@
                     End Get
                 End Property
 
+                ''' <summary>
+                ''' If TRUE, this is the primary BIOS of the computer system.
+                ''' </summary>
+                ''' <returns>TRUE if this is the primary BIOS of the computer system, otherwise false.</returns>
                 Public ReadOnly Property PrimaryBIOS() As Boolean
                     Get
-                        Return bolPrimaryBIOS
+                        If IsNothing(bolPrimaryBIOS) = True Then
+                            Return True
+                        Else
+                            Return bolPrimaryBIOS
+                        End If
                     End Get
                 End Property
 
-                Public ReadOnly Property ReleaseDate() As String
+                ''' <summary>
+                ''' Release date of the BIOS.
+                ''' </summary>
+                ''' <returns>DateTime</returns>
+                Public ReadOnly Property ReleaseDate() As Date
                     Get
-                        Return strReleaseDate
+                        If IsNothing(dtReleaseDate) = True Then
+                            Return #01/01/0001#
+                        Else
+                            Return dtReleaseDate
+                        End If
                     End Get
                 End Property
 
+                ''' <summary>
+                ''' Assigned serial number of the software element.
+                ''' </summary>
+                ''' <returns>String</returns>
                 Public ReadOnly Property SerialNumber() As String
                     Get
                         If IsNothing(strSerialNumber) = True Then
@@ -538,6 +689,10 @@
                     End Get
                 End Property
 
+                ''' <summary>
+                ''' BIOS version as reported by SMBIOS.
+                ''' </summary>
+                ''' <returns>String</returns>
                 Public ReadOnly Property SMBIOSBIOSVersion() As String
                     Get
                         If IsNothing(strSMBIOSBIOSVersion) = True Then
@@ -548,24 +703,53 @@
                     End Get
                 End Property
 
+                ''' <summary>
+                ''' Major SMBIOS version number. This property is 0 if SMBIOS is not found.
+                ''' </summary>
+                ''' <returns>UShort</returns>
                 Public ReadOnly Property SMBIOSMajorVersion() As UShort
                     Get
-                        Return srtSMBIOSMajorVersion
+                        If IsNothing(srtSMBIOSMajorVersion) = True Then
+                            Return 0
+                        Else
+                            Return srtSMBIOSMajorVersion
+                        End If
                     End Get
                 End Property
 
+                ''' <summary>
+                ''' Minor SMBIOS version number. This property is 0 if SMBIOS is not found.
+                ''' </summary>
+                ''' <returns>UShort</returns>
                 Public ReadOnly Property SMBIOSMinorVersion() As UShort
                     Get
-                        Return srtSMBIOSMinorVersion
+                        If IsNothing(srtSMBIOSMinorVersion) = True Then
+                            Return 0
+                        Else
+                            Return srtSMBIOSMinorVersion
+                        End If
                     End Get
                 End Property
 
+                ''' <summary>
+                ''' If true, the SMBIOS is available on this computer system.
+                ''' </summary>
+                ''' <returns>True if the SMBIOS is available on this computer system, otherwise false.</returns>
                 Public ReadOnly Property SMBIOSPresent() As Boolean
                     Get
-                        Return bolSMBIOSPresent
+                        If IsNothing(bolSMBIOSPresent) = True Then
+                            Return False
+                        Else
+                            Return bolSMBIOSPresent
+                        End If
                     End Get
                 End Property
 
+                ''' <summary>
+                ''' Identifier for this software element; designed to be used in conjunction 
+                ''' with other keys to create a unique representation of this instance.
+                ''' </summary>
+                ''' <returns>String</returns>
                 Public ReadOnly Property SoftwareElementID() As String
                     Get
                         If IsNothing(strSoftwareElementID) = True Then
@@ -576,12 +760,31 @@
                     End Get
                 End Property
 
+                ''' <summary>
+                ''' State of a software element.
+                ''' </summary>
+                ''' <returns>UShort</returns>
                 Public ReadOnly Property SoftwareElementState() As UShort
                     Get
-                        Return srtSoftwareElementState
+                        If IsNothing(srtSoftwareElementState) = True Then
+                            Return 0
+                        Else
+                            Return srtSoftwareElementState
+                        End If
                     End Get
                 End Property
 
+                ''' <summary>
+                ''' Current status of the object. Various operational and nonoperational statuses can 
+                ''' be defined. Operational statuses include: "OK", "Degraded", and "Pred Fail" (an 
+                ''' element, such as a SMART-enabled hard disk drive, may be functioning properly but 
+                ''' predicting a failure in the near future). Nonoperational statuses include: "Error", 
+                ''' "Starting", "Stopping", and "Service". The latter, "Service", could apply during 
+                ''' mirror-resilvering of a disk, reload of a user permissions list, or other 
+                ''' administrative work. Not all such work is online, yet the managed element is 
+                ''' neither "OK" nor in one of the other states.
+                ''' </summary>
+                ''' <returns>String</returns>
                 Public ReadOnly Property Status() As String
                     Get
                         If IsNothing(strStatus) = True Then
@@ -592,24 +795,54 @@
                     End Get
                 End Property
 
+                ''' <summary>
+                ''' This value comes from the System BIOS Major Release member of 
+                ''' the BIOS Information structure in the SMBIOS information.
+                ''' </summary>
+                ''' <returns>Byte (0-255)</returns>
                 Public ReadOnly Property SystemBiosMajorVersion() As Byte
                     Get
-                        Return bytSystemBiosMajorVersion
+                        If IsNothing(bytSystemBiosMajorVersion) = True Then
+                            Return 0
+                        Else
+                            Return bytSystemBiosMajorVersion
+                        End If
                     End Get
                 End Property
 
+                ''' <summary>
+                ''' This value comes from the System BIOS Minor Release member of 
+                ''' the BIOS Information structure in the SMBIOS information.
+                ''' </summary>
+                ''' <returns>Byte (0-255)</returns>
                 Public ReadOnly Property SystemBiosMinorVersion() As Byte
                     Get
-                        Return bytSystemBiosMinorVersion
+                        If IsNothing(bytSystemBiosMinorVersion) = True Then
+                            Return 0
+                        Else
+                            Return bytSystemBiosMinorVersion
+                        End If
                     End Get
                 End Property
 
+                ''' <summary>
+                ''' Target operating system of the owning software element.
+                ''' </summary>
+                ''' <returns>UShort</returns>
                 Public ReadOnly Property TargetOperatingSystem() As UShort
                     Get
-                        Return srtTargetOperatingSystem
+                        If IsNothing(srtTargetOperatingSystem) = True Then
+                            Return 0
+                        Else
+                            Return srtTargetOperatingSystem
+                        End If
                     End Get
                 End Property
 
+                ''' <summary>
+                ''' Version of the BIOS. This string is created by the BIOS manufacturer.
+                ''' </summary>
+                ''' <returns>String</returns>
                 Public ReadOnly Property Version() As String
                     Get
                         If IsNothing(strVersion) = True Then
@@ -620,8 +853,6 @@
                     End Get
                 End Property
 #End Region
-
-
 
             End Class
 
