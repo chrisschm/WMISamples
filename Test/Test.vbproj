@@ -126,4 +126,9 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties VsiSettingsState="Initialized" VsiUseTimeUtc="False" VsiDeltaBaseDate="14.03.2019 13:09:15" VsiUseGlobalBaseDate="True" VsiConfigurationBuildAction="True.True.True.True.False.False" VsiAutoInformationalVersion="DoNothing.DoNothing.DoNothing.Increment" VsiAutoFileVersion="DoNothing.DoNothing.DoNothing.Increment" VsiAutoVersion="DoNothing.DoNothing.DoNothing.Increment" VsiEnabled="True" />
+    </VisualStudio>
+  </ProjectExtensions>
 </Project>
