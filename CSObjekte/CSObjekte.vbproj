@@ -66,10 +66,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BIOS.vb" />
+    <Compile Include="ComputerSystem.vb" />
     <Compile Include="DiskDrive.vb" />
     <Compile Include="DiskDrives.vb" />
     <Compile Include="DiskPartition.vb" />
     <Compile Include="DiskPartitions.vb" />
+    <Compile Include="basFunctions.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -85,6 +87,12 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="OperatingSystem.vb" />
+    <Compile Include="Processor.vb" />
+    <Compile Include="Service.vb" />
+    <Compile Include="Services.vb" />
+    <Compile Include="Share.vb" />
+    <Compile Include="Shares.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="My Project\Resources.resx">
@@ -108,7 +116,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties VsiSettingsState="Initialized" VsiUseTimeUtc="False" VsiDeltaBaseDate="14.03.2019 13:09:14" VsiUseGlobalBaseDate="True" VsiConfigurationBuildAction="True.True.True.True.False.True" VsiAutoInformationalVersion="DoNothing.DoNothing.DoNothing.Increment" VsiAutoFileVersion="DoNothing.DoNothing.DoNothing.Increment" VsiAutoVersion="DoNothing.DoNothing.DoNothing.Increment" VsiEnabled="True" />
+      <UserProperties VsiEnabled="True" VsiAutoVersion="DoNothing.DoNothing.DoNothing.Increment" VsiAutoFileVersion="DoNothing.DoNothing.DoNothing.Increment" VsiAutoInformationalVersion="DoNothing.DoNothing.DoNothing.Increment" VsiConfigurationBuildAction="True.True.True.True.False.True" VsiUseGlobalBaseDate="True" VsiDeltaBaseDate="14.03.2019 13:09:14" VsiUseTimeUtc="False" VsiSettingsState="Initialized" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>
